@@ -65,7 +65,12 @@ namespace LibApp.Controllers
         {
             var firstBook = new Book() { Author = "Random Author", Title = "Random Title" };
             //return View(firstBook);
-            return RedirectToAction("Index", "Home", new {page = 1, sortBy = "title"});
+            //return RedirectToAction("Index", "Home", new {page = 1, sortBy = "title"});
+
+            //ViewData["Book"] = firstBook;
+            ViewBag.Book = firstBook;
+            return View();
+
         }
 
         // GET: BooksController/Delete/5
