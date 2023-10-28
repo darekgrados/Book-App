@@ -1,4 +1,5 @@
 ﻿using LibApp.Models;
+using LibApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,14 +64,27 @@ namespace LibApp.Controllers
         // GET: BooksController/Random
         public IActionResult Random()
         {
-            var firstBook = new Book() { Author = "Random Author", Title = "Random Title" };
-            //return View(firstBook);
-            //return RedirectToAction("Index", "Home", new {page = 1, sortBy = "title"});
+            var firstBook = new Book() { Author = "Random Author", Title = "Random Title" };       
 
+            // Use for alternative ways of passing data to views
             //ViewData["Book"] = firstBook;
-            ViewBag.Book = firstBook;
-            return View();
+            //ViewBag.Book = firstBook;
 
+            var customers = new List<Customer>
+            {
+                new Customer { Name = "Customer1" },
+                new Customer { Name = "Customer2" }
+            };
+
+            var viewModel = new RandomBookViewModel
+            {
+                Book = firstBook,
+                Customers = customers,
+            };
+
+            return View(viewModel);   
+            //return View(firstBook);
+            //return RedirectToAction("Random", "Books");
         }
 
         // GET: BooksController/Delete/5
