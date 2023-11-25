@@ -2,6 +2,7 @@
 using LibApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibApp.Controllers
 {
@@ -16,14 +17,14 @@ namespace LibApp.Controllers
         // GET: CustomersController
         public ViewResult Index()
         {
-            var customers = GetCustomers();
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
             return View(customers);
         }
 
         // GET: CustomersController/Details/5
         public IActionResult Details(int id)
         {
-            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
             {
@@ -33,14 +34,11 @@ namespace LibApp.Controllers
             return View(customer);
         }
 
-        private IEnumerable<Customer> GetCustomers()
-        {
-            return new List<Customer>
-            {
-                new Customer { Id = 1, Name = "Jan Kowalski" },
-                new Customer { Id = 2, Name = "Monika Nowak" }
-            };
-        }
+        //private IEnumerable<Customer> GetCustomers()
+        //{
+        //    var customers = _context.Customers;
+        //    return customers;
+        //}
 
         private ApplicationDbContext _context;
     }
