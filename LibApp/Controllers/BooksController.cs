@@ -1,4 +1,5 @@
-﻿using LibApp.Models;
+﻿using LibApp.Data;
+using LibApp.Models;
 using LibApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,10 @@ namespace LibApp.Controllers
 {
     public class BooksController : Controller
     {
+        public BooksController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         // GET: BooksController
         public ActionResult Index()
         {
@@ -64,7 +69,7 @@ namespace LibApp.Controllers
         // GET: BooksController/Random
         public IActionResult Random()
         {
-            var firstBook = new Book() { Author = "Random Author", Title = "Random Title" };       
+            var firstBook = new Book() { Author = "Random Author", Title = "Random Title" };
 
             // Use for alternative ways of passing data to views
             //ViewData["Book"] = firstBook;
@@ -82,7 +87,7 @@ namespace LibApp.Controllers
                 Customers = customers,
             };
 
-            return View(viewModel);   
+            return View(viewModel);
             //return View(firstBook);
             //return RedirectToAction("Random", "Books");
         }
@@ -107,5 +112,7 @@ namespace LibApp.Controllers
                 return View();
             }
         }
+
+        private ApplicationDbContext _context;
     }
 }

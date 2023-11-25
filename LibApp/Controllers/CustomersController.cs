@@ -24,7 +24,9 @@ namespace LibApp.Controllers
         // GET: CustomersController/Details/5
         public IActionResult Details(int id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers
+                .Include(c => c.MembershipType)
+                .SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
             {
