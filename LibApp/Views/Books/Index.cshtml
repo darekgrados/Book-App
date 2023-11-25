@@ -1,0 +1,35 @@
+﻿@model IEnumerable<LibApp.Models.Book>
+
+@{
+    ViewBag.Title = "Books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Books</h2>
+
+@if (!Model.Any())
+{
+    <p>There are no books yet.</p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr><th colspan="2">Book</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => book.Title)</td>
+                    <td>@book.Author</td>
+                    @*@if (customer.Birthdate.HasValue)
+                    {
+                        <td>@customer.Birthdate.Value.ToShortDateString()</td>
+                    }*@
+                    <td><a asp-action="Details" asp-route-id="@book.Id">Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

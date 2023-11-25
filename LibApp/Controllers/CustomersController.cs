@@ -36,6 +36,11 @@ namespace LibApp.Controllers
             return View(customer);
         }
 
+        public IActionResult New()
+        {
+            return View();
+        }
+
         //private IEnumerable<Customer> GetCustomers()
         //{
         //    var customers = _context.Customers;
